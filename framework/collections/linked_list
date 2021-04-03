@@ -1,0 +1,90 @@
+classdef LinkedList < handle & matlab.mixin.Heterogeneous
+    properties %(Hidden)
+        size double = 0 
+        head (1, :) Node
+        tail (1, :) Node
+    end
+    
+    methods
+        function addLast(obj, elem) %в конец
+            null = Node.empty();
+            if obj.size ~= 0
+                elem.previous = obj.tail;
+                obj.tail.next = elem;
+            else
+                elem.previous = null;
+                obj.head = elem;
+            end
+            elem.next = null;
+            obj.size = obj.size + 1;
+            obj.tail = elem;
+        end
+        
+        function addFirst(obj, elem) %в начало
+            null = Node.empty();
+            if obj.size ~= 0
+                elem.next = obj.head;
+                obj.head.previous = elem;
+            else
+                elem.next = null;
+                obj.tail = elem;
+            end
+            elem.previous = null;
+            obj.size = obj.size + 1;
+            obj.head = elem;
+        end
+    end
+    
+    methods
+        function FirstElem = pollFirst(obj)
+            if obj.size == 0
+                FirstElem = {};
+            else
+                FirstElem = obj.head;
+                if obj.size == 1
+                    obj.head = Node.empty();
+                    obj.tail = Node.empty();
+                else
+                    buff = obj.head.next;
+                    obj.head = buff;
+                    obj.head.previous = Node.empty();
+                end
+                obj.size = obj.size - 1;
+            end
+        end
+        
+        function LastElem = pollLast(obj)
+            if obj.size == 0
+                LastElem = {};
+            else
+                LastElem = obj.tail;
+                if obj.size == 1
+                    obj.head = Node.empty();
+                    obj.tail = Node.empty();
+                else
+                    buff = obj.tail.previous;
+                    obj.tail = buff;
+                    obj.tail.next = Node.empty();
+                end
+                obj.size = obj.size - 1;
+            end
+        end
+    end
+    
+    methods
+        function Elem = peek(obj, num)
+            if num > obj.size
+                disp('Такого номера нет');
+            else
+                buff = obj.head;
+                buffif num > 1
+                    for i = 2:num
+                        buff = buff.next;
+                    end
+                end
+                Elem = buff;
+            end
+        end
+    end
+end
+
