@@ -1,0 +1,103 @@
+classdef Draw < handle & matlab.mixin.Heterogeneous
+    properties %(Hidden)
+        amount_points (1,1) double {mustBeInteger} = 0
+        lim (1,1) double {mustBeInteger} = 10
+        dots  % указатели на точки
+        traj  % указатели на траектории
+        coord % координаты частиц
+        colour 
+    end
+    
+    methods
+        function obj = create_properties(obj, N, lim_traj)
+            obj.amount_points = N;
+            obj.dots = cell(N, 1);
+            obj.traj = cell(N, 1);
+            obj.coord = cell(N, 1);
+            obj.colour = cell(N, 1);
+            for i = 1:N
+                obj.dots{i} = LimitedList();
+                obj.dots{i}.limit = 2;
+                obj.traj{i} = LimitedList();
+                obj.traj{i}.limit = lim_traj;
+                obj.coord{i} = LimitedList();
+                obj.coord{i}.limit = 2;
+                obj.colour{i} = "r";
+            end
+        end
+        
+        function obj = input(obj, coordinate, colour, lim)
+            obj.amount_points = size(coordinate, 1);
+            %obj.create_properties();
+            for i = 1:obj.amount_points
+                buff = Node();
+                buff.elem = coordinate(i, :);
+                obj.coord{i}.addFirst(buff);
+            end
+            if size(colour, 2) > 0
+                for i = 1:size(colour, 2)
+                    obj.colour{i} = colour(i);
+                end
+            end
+            obj.lim = lim;
+        end
+    end
+%%
+    methods
+        function traj_limit(obj, i)
+            if obj.traj{i}.size > obj.traj{i}.limit
+                %for j = obj.traj{i}.size:-1:obj.traj{i}.limit
+                %delete(obj.dots{i}.peek(2).elem);
+                delete(obj.traj{i}.peek(obj.traj{i}.limit+1).elem);
+                %end
+                obj.traj{i}.lim();
+            end
+        end
+        
+        function show_one_particle(obj, i, colour)
+            dot = plot3(obj.coord{i}.peek(1).elem(1), ...
+                obj.coord{i}.peek(1).elem(2),...
+                   obj.coord{i}.peek(1).elem(3), 'o', 'MarkerSize', 8, ...
+                       'MarkerFaceColor', colour, 'MarkerEdgeColor', 'k');
+            buff = Node();
+            buff.elem = dot;
+            obj.dots{i}.addFirst(buff);
+            
+            if obj.coord{i}.size > 1
+                buff = colour + "-";
+                line = plot3([obj.coord{i}.peek(1).elem(1), obj.coord{i}.peek(2).elem(1)],  ...
+                        [obj.coord{i}.peek(1).elem(2), obj.coord{i}.peek(2).elem(2)], ...
+                            [obj.coord{i}.peek(1).elem(3), obj.coord{i}.peek(2).elem(3)], buff, 'LineWidth', 2);
+                buff = Node();
+                buff.elem = line;
+                obj.traj{i}.addFirst(buff);
+            end
+            %hold all
+            grid on
+            axis([0 obj.lim 0 obj.lim 0 obj.lim])
+            drawnow limitrate
+            
+            if obj.dots{i}.size > 1
+                delete(obj.dots{i}.peek(2).elem);
+            end
+            obj.dots{i}.lim();
+            obj.coord{i}.lim();
+            obj.traj_limit(i);
+        end
+        
+        function ShowTraj(obj)
+            for i = 1:obj.amount_points
+                obj.show_one_particle(i, obj.colour{i});
+                hold all
+                xlabel('x-axis')
+                ylabel('y-axis')
+                zlabel('z-axis')
+                grid on
+                drawnow limitrate
+                axis('square')
+            end
+        end
+    end
+    
+end
+
