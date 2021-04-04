@@ -1,0 +1,7 @@
+classdef Node < handle & matlab.mixin.Heterogeneous
+    properties
+        elem 
+        next Node
+        previous Node
+    end
+end
