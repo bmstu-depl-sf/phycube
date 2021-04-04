@@ -1,0 +1,15 @@
+classdef LimitedList < LinkedList
+    properties
+        limit (1, 1) double = 2
+    end
+    
+    methods
+        function obj = lim(obj) %откидываюся конечные элементы
+            N = obj.size - obj.limit;
+            if N > 0
+               obj.pollLast();
+            end
+        end
+    end
+end
+
