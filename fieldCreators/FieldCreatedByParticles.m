@@ -1,11 +1,11 @@
-classdef FiledCreatedByParticles < FieldCreatorIface
+classdef FieldCreatedByParticles < FieldCreatorIface
     properties
         particles(1, :) Particle = Particle.empty()
         field(1, :) Field = Field.empty()
     end
     
     methods
-        function obj = FiledCreatedByParticles(field)
+        function obj = FieldCreatedByParticles(field)
             arguments
                 field(1, 1) Field
             end
@@ -14,7 +14,7 @@ classdef FiledCreatedByParticles < FieldCreatorIface
         
         function addParticles(obj, particles)
             arguments
-                obj(1, 1) FiledCreatedByParticles
+                obj(1, 1) FieldCreatedByParticles
                 particles(1, :) Particle
             end
             

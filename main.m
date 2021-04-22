@@ -13,7 +13,7 @@ particle3 = Particle(opt, [1, 0, 1]);
 
 %% create electric field created by group of particles
 electricField = ElectricField();
-electricFieldCreatorByParticles = FiledCreatedByParticles(electricField);
+electricFieldCreatorByParticles = FieldCreatedByParticles(electricField);
 electricFieldCreatorByParticles.addParticles([particle1, particle2, particle3]);
 
 %test
