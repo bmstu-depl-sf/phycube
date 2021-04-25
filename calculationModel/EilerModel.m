@@ -1,13 +1,13 @@
 classdef EilerModel < CaiculationModel
     methods
-        function move(obj, particle, t)
+        function move(obj, particle, dt)
             arguments
                 obj (1, 1) EilerModel
                 particle (1, 1) Particle
-                t (1, 1) double
+                dt (1, 1) double
             end
-            particle.speed.coord = particle.speed.coord + particle.R.coord*t/particle.opt.m;
-            particle.coord.coord = particle.coord.coord + particle.speed.coord*t;
+            particle.speed = particle.speed + dt/particle.opt.m * particle.R;
+            particle.coord = particle.coord + dt * particle.speed;
         end
     end
 end

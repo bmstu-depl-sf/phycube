@@ -1,5 +1,5 @@
 classdef Vec3D < handle
-    properties
+    properties (Hidden, Access = private)
         coord(1, 3) double {mustBeNumeric} = [0, 0, 0]
     end
     
@@ -10,6 +10,13 @@ classdef Vec3D < handle
             end
             
             obj.coord = coord;
+        end
+        
+        function coord = output(obj)
+            arguments
+                obj(1, 1) Vec3D
+            end
+            coord = obj.coord;
         end
         
         function modulus = norm(obj)
