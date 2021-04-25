@@ -4,13 +4,13 @@ classdef ElectricForce < ForceIface
     end
     
     methods
-        function obj = calculateForce(obj, field, point, creator_coord)
+        function obj = calculateForce(obj, field, point, Creator_coord)
             arguments
                 obj(1, 1) ElectricForce
                 field(1, 1) ElectricField
                 point(1, 1) Particle
             end
-            obj.Force = field.calculateField(point.opt, creator_coord, point.coord) * poin.opt.q; 
+            obj.Force = field.calculateField(point.opt, Creator_coord, point.coord) * poin.opt.q; 
         end
     end
 end
