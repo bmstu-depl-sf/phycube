@@ -3,6 +3,12 @@ classdef Vec3D < handle
         coord(1, 3) double {mustBeNumeric} = [0, 0, 0]
     end
     
+    properties (Dependent) 
+        x (1, 1) double
+        y (1, 1) double
+        z (1, 1) double 
+    end 
+    
     methods
         function obj = Vec3D(coord)
             arguments
