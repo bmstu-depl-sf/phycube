@@ -29,7 +29,7 @@ classdef FieldCreatedByParticles < FieldCreatorIface
         function field = getField(obj, point)
             field = Vec3D();
             for particle = obj.particles
-                field = field + obj.field(end).calculateField(particle.opt, particle.coord, point);
+                field = field + obj.field(end).calculateField(particle.opt, [particle.x, particle.y, particle.z], point);
             end
         end
     end

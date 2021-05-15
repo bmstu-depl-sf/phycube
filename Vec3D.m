@@ -11,14 +11,7 @@ classdef Vec3D < handle
             
             obj.coord = coord;
         end
-        
-        function coord = output(obj)
-            arguments
-                obj(1, 1) Vec3D
-            end
-            coord = obj.coord;
-        end
-        
+
         function modulus = norm(obj)
             arguments
                 obj(1, 1) Vec3D
@@ -56,5 +49,36 @@ classdef Vec3D < handle
             obj = Vec3D(right.coord * left);
         end
     end
+    
+    
+    properties (Dependent)
+        x (1, 1) double
+        y (1, 1) double
+        z (1, 1) double
+    end
+    
+    
+    methods
+        function x = get.x(obj)
+         x = obj.coord(1);
+        end
+        function y = get.y(obj)
+            y = obj.coord(2);
+        end
+        function z = get.z(obj)
+         z = obj.coord(3);
+        end
+        function set.x(obj, x)
+        obj.coord(1) = x;
+        end
+        function set.y(obj, y)
+        obj.coord(2) = y;
+        end
+        function set.z(obj, z)
+        obj.coord(3) = z;
+        end
+
+end 
+
 end
 
