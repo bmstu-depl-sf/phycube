@@ -1,11 +1,19 @@
 classdef BorderReflection < Border 
 
     properties
-        limit (1, 3) double = [10, 10, 10]
-       % particle_electron particle
+        limit (1, 3) double = [0, 0, 0]
     end
     
     methods
+        function obj = BorderReflection(x, y, z)
+          arguments
+               x (1, 1) double 
+               y (1, 1) double
+               z (1, 1) double 
+          end
+            obj.limit = [x, y, z];
+        end
+        
         function sanytize_border(obj, particle_electron)
             for i=1:3
                 if(particle_electron.coord.coord(1,i)>obj.limit(1,i))
