@@ -2,6 +2,7 @@
 addpath('./fieldCreators/');
 addpath('./fields/');
 addpath('./forces/');
+addpath('./border/');
 
 %% create particles
 opt = ParticleOptions(1, 1);
@@ -17,3 +18,11 @@ electricFieldCreatorByParticles.addParticles([particle1, particle2, particle3]);
 
 %test
 % electricFieldCreatorByParticles.getField(Vec3D([0, 0, 0]))
+%% test border
+opt = ParticleOptions(1, 1);
+
+particle1 = Particle(opt, [11, -1, 1], [1,-2, 4]);
+bar = BorderReflection(10, 10, 10);
+bar.sanytize_border(particle1);
+assert(isequal(particle1.coord.coord,[9,1,1]))
+assert(isequal(particle1.speed.coord,[-1,2,4]))

@@ -2,7 +2,7 @@ classdef Vec3D < handle
     properties
         coord(1, 3) double {mustBeNumeric} = [0, 0, 0]
     end
-    
+
     methods
         function obj = Vec3D(coord)
             arguments
