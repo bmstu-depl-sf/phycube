@@ -1,11 +1,11 @@
-classdef FiledCreatedByParticles < FieldCreatorIface
+classdef FieldCreatedByParticles < FieldCreatorIface
     properties
         particles(1, :) Particle = Particle.empty()
         field(1, :) Field = Field.empty()
     end
     
     methods
-        function obj = FiledCreatedByParticles(field)
+        function obj = FieldCreatedByParticles(field)
             arguments
                 field(1, 1) Field
             end
@@ -14,7 +14,7 @@ classdef FiledCreatedByParticles < FieldCreatorIface
         
         function addParticles(obj, particles)
             arguments
-                obj(1, 1) FiledCreatedByParticles
+                obj(1, 1) FieldCreatedByParticles
                 particles(1, :) Particle
             end
             
@@ -29,7 +29,7 @@ classdef FiledCreatedByParticles < FieldCreatorIface
         function field = getField(obj, point)
             field = Vec3D();
             for particle = obj.particles
-                field = field + obj.field(end).calculateField(particle.opt, particle.coord, point);
+                field = field + obj.field(end).calculateField(particle.opt, [particle.x, particle.y, particle.z], point);
             end
         end
     end

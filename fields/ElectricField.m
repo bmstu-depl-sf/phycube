@@ -13,7 +13,9 @@ classdef ElectricField < Field
             end
             
             rVec = to_point - from_point;
-            field = (obj.k * particleOptions.q / rVec.norm() ^ 3) * rVec;  
+            if (rVec.norm() > 0)
+                field = (obj.k * particleOptions.q / rVec.norm() ^ 3) * rVec;
+            end
         end
     end
 end

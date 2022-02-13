@@ -3,6 +3,7 @@ classdef Particle < handle & matlab.mixin.Heterogeneous
         coord(1, 1) Vec3D = Vec3D()
         speed(1, 1) Vec3D = Vec3D()
         opt(1, 1) ParticleOptions = ParticleOptions(0, 0)
+        R Vec3D
     end
     
     methods
